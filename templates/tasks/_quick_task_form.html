@@ -5,7 +5,9 @@
       hx-swap="beforeend"
       hx-on::after-request="if(event.detail.successful){this.reset();}">
     {% csrf_token %}
-    <span class="quick-add-icon" aria-hidden="true">+</span>
+    <svg class="quick-add-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#3d7c2d" d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/>
+    </svg>
     <input type="text"
            name="name"
            class="form-control{% if form.name.errors %} is-invalid{% endif %}"

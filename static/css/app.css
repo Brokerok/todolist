@@ -72,12 +72,12 @@ main.container {
 }
 
 .quick-add-icon {
-    color: #5a9242;
-    font-size: 1.5rem;
-    line-height: 1;
-    width: 22px;
-    text-align: center;
-    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    filter:
+        drop-shadow(0 1px 0 rgba(255, 255, 255, 0.35))
+        drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.45));
 }
 
 .task-quick-add input {
