@@ -26,7 +26,8 @@ select = [
     "RUF", # ruff-specific rules
 ]
 ignore = [
-    "E501",  # line length is handled by formatter
+    "E501",   # line length is handled by formatter
+    "RUF012", # Django's Meta class doesn't need ClassVar annotations
 ]
 
 [tool.ruff.lint.isort]
