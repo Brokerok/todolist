@@ -2,6 +2,11 @@
     {% include "tasks/_project_header.html" with project=project %}
 
     <div class="project-tasks" id="project-tasks-{{ project.pk }}">
-        {# Task list and quick-add form land here in the next step. #}
+        {% include "tasks/_quick_task_form.html" with project=project %}
+        <div class="task-list">
+            {% for task in project.tasks.all %}
+                {% include "tasks/_task_row.html" with task=task %}
+            {% endfor %}
+        </div>
     </div>
 </article>

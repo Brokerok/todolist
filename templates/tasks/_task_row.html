@@ -1,0 +1,43 @@
+<div class="task-row{% if task.is_done %} task-done{% endif %}" id="task-row-{{ task.pk }}">
+    <form class="task-toggle"
+          hx-post="{% url 'tasks:task_toggle' task.pk %}"
+          hx-target="#task-row-{{ task.pk }}"
+          hx-swap="outerHTML">
+        {% csrf_token %}
+        <input type="checkbox"
+               name="done"
+               class="form-check-input"
+               aria-label="Mark task as done"
+               {% if task.is_done %}checked{% endif %}
+               onchange="this.form.requestSubmit()">
+    </form>
+
+    <div class="task-body">
+        <span class="task-name">{{ task.name }}</span>
+        {% if task.deadline %}
+            <span class="task-deadline badge text-bg-light">
+                &#128197; {{ task.deadline|date:"M j, Y" }}
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="task-actions">
+        <button type="button"
+                class="btn btn-sm btn-link p-1 text-secondary"
+                aria-label="Edit task"
+                hx-get="{% url 'tasks:task_update' task.pk %}"
+                hx-target="#task-row-{{ task.pk }}"
+                hx-swap="outerHTML">
+            &#9998;
+        </button>
+        <button type="button"
+                class="btn btn-sm btn-link p-1 text-secondary"
+                aria-label="Delete task"
+                hx-post="{% url 'tasks:task_delete' task.pk %}"
+                hx-target="#task-row-{{ task.pk }}"
+                hx-swap="delete"
+                hx-confirm="Delete task '{{ task.name }}'?">
+            &#128465;
+        </button>
+    </div>
+</div>

@@ -6,6 +6,7 @@ app_name = "tasks"
 
 urlpatterns = [
     path("", views.ProjectListView.as_view(), name="project_list"),
+    # Projects
     path("projects/", views.ProjectCreateView.as_view(), name="project_create"),
     path(
         "projects/<int:pk>/edit/",
@@ -22,4 +23,18 @@ urlpatterns = [
         views.ProjectDeleteView.as_view(),
         name="project_delete",
     ),
+    # Tasks
+    path(
+        "projects/<int:project_id>/tasks/",
+        views.TaskCreateView.as_view(),
+        name="task_create",
+    ),
+    path("tasks/<int:pk>/edit/", views.TaskUpdateView.as_view(), name="task_update"),
+    path("tasks/<int:pk>/row/", views.TaskRowView.as_view(), name="task_row"),
+    path(
+        "tasks/<int:pk>/toggle/",
+        views.TaskToggleDoneView.as_view(),
+        name="task_toggle",
+    ),
+    path("tasks/<int:pk>/delete/", views.TaskDeleteView.as_view(), name="task_delete"),
 ]

@@ -1,0 +1,20 @@
+<form class="task-quick-add"
+      id="task-quick-form-{{ project.pk }}"
+      hx-post="{% url 'tasks:task_create' project.pk %}"
+      hx-target="#project-tasks-{{ project.pk }} .task-list"
+      hx-swap="beforeend"
+      hx-on::after-request="if(event.detail.successful){this.reset();}">
+    {% csrf_token %}
+    <span class="quick-add-icon" aria-hidden="true">+</span>
+    <input type="text"
+           name="name"
+           class="form-control{% if form.name.errors %} is-invalid{% endif %}"
+           placeholder="Start typing here to create a task..."
+           maxlength="200"
+           required
+           autocomplete="off">
+    <button type="submit" class="btn btn-success">Add Task</button>
+</form>
+{% if form.name.errors %}
+    <div class="text-danger small mt-1">{{ form.name.errors|join:", " }}</div>
+{% endif %}

@@ -1,0 +1,48 @@
+<div class="task-row task-editing" id="task-row-{{ task.pk }}">
+    <form class="d-flex flex-wrap align-items-start gap-2 w-100"
+          hx-post="{% url 'tasks:task_update' task.pk %}"
+          hx-target="#task-row-{{ task.pk }}"
+          hx-swap="outerHTML">
+        {% csrf_token %}
+        <input type="text"
+               name="name"
+               value="{{ form.name.value|default:task.name }}"
+               class="form-control form-control-sm flex-grow-1{% if form.name.errors %} is-invalid{% endif %}"
+               maxlength="200"
+               required
+               placeholder="Task name"
+               autofocus>
+        <input type="date"
+               name="deadline"
+               value="{{ form.deadline.value|date:'Y-m-d'|default_if_none:'' }}"
+               class="form-control form-control-sm{% if form.deadline.errors %} is-invalid{% endif %}"
+               style="max-width: 180px;">
+        <select name="status"
+                class="form-select form-select-sm{% if form.status.errors %} is-invalid{% endif %}"
+                style="max-width: 130px;">
+            {% for value, label in form.fields.status.choices %}
+                <option value="{{ value }}"
+                        {% if form.status.value|default:task.status == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+        <div class="d-flex gap-1">
+            <button type="submit" class="btn btn-sm btn-success">Save</button>
+            <button type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    hx-get="{% url 'tasks:task_row' task.pk %}"
+                    hx-target="#task-row-{{ task.pk }}"
+                    hx-swap="outerHTML">
+                Cancel
+            </button>
+        </div>
+    </form>
+    {% if form.errors %}
+        <div class="text-danger small mt-1 w-100">
+            {% for field, errors in form.errors.items %}
+                <div>{{ field }}: {{ errors|join:", " }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
