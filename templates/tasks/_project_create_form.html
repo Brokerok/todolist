@@ -3,7 +3,8 @@
             class="btn add-list-button"
             x-show="!open"
             x-on:click="open = true; $nextTick(() => $refs.input.focus())">
-        + Add TODO List
+        <span class="add-list-plus" aria-hidden="true">+</span>
+        Add TODO List
     </button>
 
     <form id="project-create-form"

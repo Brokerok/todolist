@@ -173,15 +173,33 @@ main.container {
     background: linear-gradient(180deg, #5e87cd 0%, #2f5cab 100%);
     border: 1px solid #244c91;
     color: #fff;
-    padding: 12px 26px;
+    padding: 10px 22px 10px 10px;
     font-weight: 600;
     font-size: 1.05rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .add-list-button:hover {
     background: linear-gradient(180deg, #6e97dd 0%, #3a6cba 100%);
     color: #fff;
+}
+
+.add-list-plus {
+    background: linear-gradient(180deg, #91be71 0%, #5a9242 100%);
+    border: 1px solid #4a7a37;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: 3px;
 }
 
 /* ---------- Empty state ---------- */
