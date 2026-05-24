@@ -1,23 +1,41 @@
-<form id="project-create-form"
-      hx-post="{% url 'tasks:project_create' %}"
-      hx-target="#projects-container"
-      hx-swap="beforeend"
-      hx-on::after-request="if(event.detail.successful){this.reset();document.getElementById('empty-state')?.remove();}"
-      class="d-inline-block">
-    {% csrf_token %}
-    <div class="d-flex justify-content-center align-items-start gap-2">
+<div x-data="{ open: false }" class="d-inline-block">
+    <button type="button"
+            class="btn add-list-button"
+            x-show="!open"
+            x-on:click="open = true; $nextTick(() => $refs.input.focus())">
+        + Add TODO List
+    </button>
+
+    <form id="project-create-form"
+          x-show="open"
+          x-cloak
+          hx-post="{% url 'tasks:project_create' %}"
+          hx-target="#projects-container"
+          hx-swap="beforeend"
+          hx-on::after-request="
+              if (event.detail.successful) {
+                  this.reset();
+                  document.getElementById('empty-state')?.remove();
+              }"
+          class="d-flex justify-content-center align-items-start gap-2">
+        {% csrf_token %}
         <input type="text"
                name="name"
+               x-ref="input"
                class="form-control{% if form.name.errors %} is-invalid{% endif %}"
-               placeholder="New TODO list name"
+               placeholder="TODO list name"
                maxlength="200"
                required
-               style="width: 280px;">
-        <button type="submit" class="btn btn-primary">
-            + Add TODO List
+               style="max-width: 280px;">
+        <button type="submit" class="btn add-list-button">Create</button>
+        <button type="button"
+                class="btn btn-outline-light"
+                x-on:click="open = false">
+            Cancel
         </button>
-    </div>
+    </form>
+
     {% if form.name.errors %}
         <div class="text-danger small mt-1">{{ form.name.errors|join:", " }}</div>
     {% endif %}
-</form>
+</div>
