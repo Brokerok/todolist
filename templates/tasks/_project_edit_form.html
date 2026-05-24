@@ -1,0 +1,26 @@
+<header class="project-header" id="project-header-{{ project.pk }}">
+    <form class="d-flex flex-grow-1 align-items-center gap-2"
+          hx-post="{% url 'tasks:project_update' project.pk %}"
+          hx-target="#project-header-{{ project.pk }}"
+          hx-swap="outerHTML">
+        {% csrf_token %}
+        <input type="text"
+               name="name"
+               value="{{ form.name.value|default:project.name }}"
+               class="form-control form-control-sm{% if form.name.errors %} is-invalid{% endif %}"
+               maxlength="200"
+               required
+               autofocus>
+        <button type="submit" class="btn btn-sm btn-success">Save</button>
+        <button type="button"
+                class="btn btn-sm btn-outline-light"
+                hx-get="{% url 'tasks:project_header' project.pk %}"
+                hx-target="#project-header-{{ project.pk }}"
+                hx-swap="outerHTML">
+            Cancel
+        </button>
+    </form>
+    {% if form.name.errors %}
+        <div class="text-danger small ms-2">{{ form.name.errors|join:", " }}</div>
+    {% endif %}
+</header>

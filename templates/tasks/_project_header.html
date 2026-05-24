@@ -1,0 +1,23 @@
+<header class="project-header" id="project-header-{{ project.pk }}">
+    <span class="project-icon" aria-hidden="true">&#128197;</span>
+    <h2 class="project-name flex-grow-1 mb-0">{{ project.name }}</h2>
+    <div class="project-actions">
+        <button type="button"
+                class="btn btn-sm btn-link text-light p-1"
+                aria-label="Edit project"
+                hx-get="{% url 'tasks:project_update' project.pk %}"
+                hx-target="#project-header-{{ project.pk }}"
+                hx-swap="outerHTML">
+            &#9998;
+        </button>
+        <button type="button"
+                class="btn btn-sm btn-link text-light p-1"
+                aria-label="Delete project"
+                hx-post="{% url 'tasks:project_delete' project.pk %}"
+                hx-target="#project-card-{{ project.pk }}"
+                hx-swap="delete"
+                hx-confirm="Delete project '{{ project.name }}' and all its tasks?">
+            &#128465;
+        </button>
+    </div>
+</header>

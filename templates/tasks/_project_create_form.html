@@ -1,0 +1,23 @@
+<form id="project-create-form"
+      hx-post="{% url 'tasks:project_create' %}"
+      hx-target="#projects-container"
+      hx-swap="beforeend"
+      hx-on::after-request="if(event.detail.successful){this.reset();document.getElementById('empty-state')?.remove();}"
+      class="d-inline-block">
+    {% csrf_token %}
+    <div class="d-flex justify-content-center align-items-start gap-2">
+        <input type="text"
+               name="name"
+               class="form-control{% if form.name.errors %} is-invalid{% endif %}"
+               placeholder="New TODO list name"
+               maxlength="200"
+               required
+               style="width: 280px;">
+        <button type="submit" class="btn btn-primary">
+            + Add TODO List
+        </button>
+    </div>
+    {% if form.name.errors %}
+        <div class="text-danger small mt-1">{{ form.name.errors|join:", " }}</div>
+    {% endif %}
+</form>
