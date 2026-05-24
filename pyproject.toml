@@ -1,0 +1,57 @@
+[project]
+name = "todolist"
+version = "0.1.0"
+description = "Simple task manager built with Django, HTMX, Alpine.js and Bootstrap 5."
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = [
+    "*/migrations/*",
+    ".venv",
+    "staticfiles",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "DJ",  # flake8-django
+    "UP",  # pyupgrade
+    "RUF", # ruff-specific rules
+]
+ignore = [
+    "E501",  # line length is handled by formatter
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["config", "tasks", "users"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-ra --strict-markers --reuse-db"
+
+[tool.coverage.run]
+branch = true
+source = ["tasks", "users", "config"]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "manage.py",
+    "config/asgi.py",
+    "config/wsgi.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
