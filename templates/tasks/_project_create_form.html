@@ -7,8 +7,8 @@
     </button>
 
     <form id="project-create-form"
-          x-show="open"
           x-cloak
+          :class="open ? 'd-flex' : 'd-none'"
           hx-post="{% url 'tasks:project_create' %}"
           hx-target="#projects-container"
           hx-swap="beforeend"
@@ -17,7 +17,7 @@
                   this.reset();
                   document.getElementById('empty-state')?.remove();
               }"
-          class="d-flex justify-content-center align-items-start gap-2">
+          class="justify-content-center align-items-start gap-2">
         {% csrf_token %}
         <input type="text"
                name="name"
