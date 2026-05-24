@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third-party
     "django_htmx",
+    "allauth",
+    "allauth.account",
     # Local
     "users",
     "tasks",
@@ -43,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -107,6 +110,23 @@ EMAIL_BACKEND = env(
 LOGIN_URL = "account_login"
 LOGIN_REDIRECT_URL = "tasks:project_list"
 LOGOUT_REDIRECT_URL = "account_login"
+
+# django-allauth
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET = False
+ACCOUNT_RATE_LIMITS = {"login_failed": "5/5m"}
+ACCOUNT_FORMS = {
+    "login": "users.forms.BootstrapLoginForm",
+    "signup": "users.forms.BootstrapSignupForm",
+}
 
 
 # Security (prod-safe defaults; only kick in when DEBUG is off)
