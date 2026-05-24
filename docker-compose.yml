@@ -23,7 +23,8 @@ services:
         INSTALL_DEV: "true"
     restart: unless-stopped
     command: >
-      sh -c "python manage.py migrate --noinput &&
+      sh -c "mkdir -p staticfiles &&
+             python manage.py migrate --noinput &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app

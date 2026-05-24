@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 
 import pytest
+from django.utils import timezone
 
 from tasks import services
 from tasks.models import Project, Task
@@ -81,7 +82,7 @@ class TestUpdateTask:
 
     def test_clears_completed_at_when_status_becomes_todo(self):
         task = TaskFactory(status=Task.Status.DONE)
-        task.completed_at = date.today()
+        task.completed_at = timezone.now()
         task.save()
 
         services.update_task(task=task, status=Task.Status.TODO)

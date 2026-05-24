@@ -9,10 +9,17 @@ User = get_user_model()
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
+        skip_postgeneration_save = True
 
     username = factory.Sequence(lambda n: f"user{n}")
     email = factory.Sequence(lambda n: f"user{n}@example.com")
-    password = factory.PostGenerationMethodCall("set_password", "password123")
+
+    @factory.post_generation
+    def password(self, create, extracted, **kwargs):
+        if not create:
+            return
+        self.set_password(extracted or "password123")
+        self.save()
 
 
 class ProjectFactory(factory.django.DjangoModelFactory):
