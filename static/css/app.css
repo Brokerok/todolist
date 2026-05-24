@@ -188,18 +188,11 @@ main.container {
 }
 
 .add-list-plus {
-    background: linear-gradient(180deg, #91be71 0%, #5a9242 100%);
-    border: 1px solid #4a7a37;
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 1;
-    border-radius: 3px;
+    width: 26px;
+    height: 26px;
+    fill: #1d3a7a;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.18));
+    flex-shrink: 0;
 }
 
 /* ---------- Empty state ---------- */
