@@ -18,6 +18,11 @@ DEBUG = env("DJANGO_DEBUG")
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("DJANGO_CSRF_TRUSTED_ORIGINS")
 
+# Railway exposes the public host in this variable - opt the deployment in automatically.
+if railway_domain := env("RAILWAY_PUBLIC_DOMAIN", default=""):
+    ALLOWED_HOSTS.append(railway_domain)
+    CSRF_TRUSTED_ORIGINS.append(f"https://{railway_domain}")
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
