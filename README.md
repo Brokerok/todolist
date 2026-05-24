@@ -4,7 +4,7 @@ A small project & task manager built with Django, HTMX, Alpine.js and Bootstrap 
 It lets a signed-in user create TODO lists, add tasks with deadlines, mark them
 as done and reorder them by priority.
 
-> **Live demo:** _add the Railway URL here after the first deploy_
+> **Live demo:** <https://web-production-4905.up.railway.app/>
 
 
 ## Features
