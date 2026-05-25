@@ -117,24 +117,22 @@ main.container {
     position: relative;
 }
 
-.task-list::before,
-.task-list::after {
+.task-list::before {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: rgb(236, 227, 230);
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        transparent 43px,
+        rgb(236, 227, 230) 43px 44px,
+        transparent 44px 47px,
+        rgb(236, 227, 230) 47px 48px,
+        transparent 48px calc(100% - 109px),
+        rgb(236, 227, 230) calc(100% - 109px) calc(100% - 108px),
+        transparent calc(100% - 108px)
+    );
     pointer-events: none;
     z-index: 1;
-}
-
-.task-list::before {
-    left: 43px;
-}
-
-.task-list::after {
-    left: 47px;
 }
 
 .task-row {
@@ -190,16 +188,20 @@ main.container {
 }
 
 .task-actions {
-    display: none;
+    display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 4px;
     color: #888;
+    width: 88px;
+    flex-shrink: 0;
+    visibility: hidden;
 }
 
 .task-row:hover .task-actions,
 .task-row.task-editing .task-actions,
 .task-row.task-row-open .task-actions {
-    display: flex;
+    visibility: visible;
 }
 
 .task-drag-handle {
