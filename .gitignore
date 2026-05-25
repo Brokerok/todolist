@@ -58,3 +58,6 @@ coverage.xml
 # OS
 .DS_Store
 Thumbs.db
+
+# Local AI/editor context
+CLAUDE.md
