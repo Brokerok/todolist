@@ -171,7 +171,8 @@ main.container {
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
-    color: #555;
+    color: #8a8a8a;
+    padding-left: 12px;
 }
 
 .task-name {
