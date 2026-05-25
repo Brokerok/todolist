@@ -299,24 +299,6 @@ main.container {
 
 /* ---------- Mobile tweaks ---------- */
 @media (max-width: 575.98px) {
-    .task-quick-add {
-        flex-wrap: wrap;
-    }
-
-    .task-quick-add input {
-        flex-basis: 100%;
-        order: 1;
-    }
-
-    .quick-add-icon {
-        order: 0;
-    }
-
-    .task-quick-add .btn {
-        order: 2;
-        width: 100%;
-    }
-
     .project-name {
         font-size: 1rem;
     }
