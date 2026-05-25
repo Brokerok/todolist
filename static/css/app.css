@@ -123,7 +123,7 @@ main.container {
     padding: 10px 16px;
     border-bottom: 1px solid #f0f0f0;
     position: relative;
-    border-left: 3px solid #d97a7a;
+    border-left: 1px solid #f0f0f0;
 }
 
 .task-row:last-child {
@@ -136,6 +136,15 @@ main.container {
 
 .task-toggle {
     margin: 0;
+}
+
+.task-divider {
+    align-self: stretch;
+    width: 4px;
+    border-left: 1px solid #d97a7a;
+    border-right: 1px solid #d97a7a;
+    margin: 0 -3px;
+    flex-shrink: 0;
 }
 
 .task-toggle .form-check-input {
