@@ -104,6 +104,7 @@ main.container {
     border: 1px solid #4a7a37;
     color: #fff;
     font-weight: 500;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
 }
 
 .task-quick-add .btn:hover {
