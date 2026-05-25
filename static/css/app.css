@@ -128,7 +128,7 @@ main.container {
         transparent 44px 47px,
         rgb(236, 227, 230) 47px 48px,
         transparent 48px calc(100% - 109px),
-        rgb(236, 227, 230) calc(100% - 109px) calc(100% - 108px),
+        #f0f0f0 calc(100% - 109px) calc(100% - 108px),
         transparent calc(100% - 108px)
     );
     pointer-events: none;
@@ -190,7 +190,7 @@ main.container {
 .task-actions {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 4px;
     color: #888;
     width: 88px;
