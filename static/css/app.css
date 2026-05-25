@@ -114,6 +114,27 @@ main.container {
 /* ---------- Task rows ---------- */
 .task-list {
     background: #fff;
+    position: relative;
+}
+
+.task-list::before,
+.task-list::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgb(236, 227, 230);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.task-list::before {
+    left: 43px;
+}
+
+.task-list::after {
+    left: 47px;
 }
 
 .task-row {
@@ -138,14 +159,6 @@ main.container {
     margin: 0;
 }
 
-.task-divider {
-    align-self: stretch;
-    width: 4px;
-    border-left: 1px solid #d97a7a;
-    border-right: 1px solid #d97a7a;
-    margin: 0 -3px;
-    flex-shrink: 0;
-}
 
 .task-toggle .form-check-input {
     margin: 0;
