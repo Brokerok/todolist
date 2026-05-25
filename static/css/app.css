@@ -50,9 +50,14 @@ main.container {
 }
 
 .project-actions {
-    display: flex;
+    display: none;
+    align-items: center;
     gap: 4px;
     margin-left: auto;
+}
+
+.project-header:hover .project-actions {
+    display: flex;
 }
 
 .project-actions .btn {
@@ -63,6 +68,11 @@ main.container {
 
 .project-actions .btn:hover {
     color: #fff !important;
+}
+
+.project-action-sep {
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 300;
 }
 
 /* ---------- Quick add row ---------- */
