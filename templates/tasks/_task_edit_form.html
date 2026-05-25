@@ -1,5 +1,7 @@
 <div class="task-row task-editing" id="task-row-{{ task.pk }}">
-    <form class="d-flex flex-wrap align-items-start gap-2 w-100"
+    <span class="task-edit-spacer task-edit-spacer-left" aria-hidden="true"></span>
+
+    <form class="task-edit-form"
           hx-post="{% url 'tasks:task_update' task.pk %}"
           hx-target="#task-row-{{ task.pk }}"
           hx-swap="outerHTML">
@@ -38,12 +40,14 @@
                 Cancel
             </button>
         </div>
+        {% if form.errors %}
+            <div class="text-danger small mt-1 w-100">
+                {% for field, errors in form.errors.items %}
+                    <div>{{ field }}: {{ errors|join:", " }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </form>
-    {% if form.errors %}
-        <div class="text-danger small mt-1 w-100">
-            {% for field, errors in form.errors.items %}
-                <div>{{ field }}: {{ errors|join:", " }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
+
+    <span class="task-edit-spacer task-edit-spacer-right" aria-hidden="true"></span>
 </div>
