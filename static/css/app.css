@@ -17,6 +17,11 @@ main.container {
     color: #c0c0c0;
 }
 
+.alert.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 /* ---------- Project card ---------- */
 .project-card {
     border-radius: 8px;
