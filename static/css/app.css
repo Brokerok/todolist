@@ -155,12 +155,36 @@ main.container {
 .task-actions {
     display: none;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
+    color: #888;
 }
 
 .task-row:hover .task-actions,
 .task-row.task-editing .task-actions {
     display: flex;
+}
+
+.task-drag-handle {
+    cursor: grab;
+    user-select: none;
+    color: #666;
+    padding: 0 4px;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.task-drag-handle:active {
+    cursor: grabbing;
+}
+
+.task-action-sep {
+    color: #ccc;
+    font-weight: 300;
+}
+
+.task-row-ghost {
+    opacity: 0.4;
+    background: #fffacd;
 }
 
 .task-editing {

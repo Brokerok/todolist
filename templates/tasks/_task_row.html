@@ -1,4 +1,6 @@
-<div class="task-row{% if task.is_done %} task-done{% endif %}" id="task-row-{{ task.pk }}">
+<div class="task-row{% if task.is_done %} task-done{% endif %}"
+     id="task-row-{{ task.pk }}"
+     data-task-id="{{ task.pk }}">
     <form class="task-toggle"
           hx-post="{% url 'tasks:task_toggle' task.pk %}"
           hx-target="#task-row-{{ task.pk }}"
@@ -22,6 +24,12 @@
     </div>
 
     <div class="task-actions">
+        <span class="task-drag-handle"
+              role="button"
+              tabindex="0"
+              aria-label="Reorder task"
+              title="Drag to reorder">&#8645;</span>
+        <span class="task-action-sep" aria-hidden="true">|</span>
         <button type="button"
                 class="btn btn-sm btn-link p-1 text-secondary"
                 aria-label="Edit task"
@@ -30,6 +38,7 @@
                 hx-swap="outerHTML">
             &#9998;
         </button>
+        <span class="task-action-sep" aria-hidden="true">|</span>
         <button type="button"
                 class="btn btn-sm btn-link p-1 text-secondary"
                 aria-label="Delete task"

@@ -130,3 +130,30 @@ class TestCreateTaskWithDeadline:
         task = services.create_task(project=project, name="Deadline", deadline=in_three_days)
 
         assert task.deadline == in_three_days
+
+
+@pytest.mark.django_db
+class TestReorderTasks:
+    def test_persists_new_order(self):
+        project = ProjectFactory()
+        t1 = TaskFactory(project=project, order=1)
+        t2 = TaskFactory(project=project, order=2)
+        t3 = TaskFactory(project=project, order=3)
+
+        services.reorder_tasks(project=project, ordered_ids=[t3.pk, t1.pk, t2.pk])
+
+        for task in (t1, t2, t3):
+            task.refresh_from_db()
+        assert (t3.order, t1.order, t2.order) == (1, 2, 3)
+
+    def test_ignores_ids_from_other_projects(self):
+        project = ProjectFactory()
+        own = TaskFactory(project=project, order=1)
+        alien = TaskFactory(order=1)
+
+        services.reorder_tasks(project=project, ordered_ids=[alien.pk, own.pk])
+
+        own.refresh_from_db()
+        alien.refresh_from_db()
+        assert alien.order == 1
+        assert own.order == 1

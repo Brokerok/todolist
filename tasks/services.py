@@ -91,3 +91,24 @@ def toggle_task_done(*, task: Task) -> Task:
 
 def delete_task(*, task: Task) -> None:
     task.delete()
+
+
+def reorder_tasks(*, project: Project, ordered_ids: list[int]) -> None:
+    """Persist a new 1-based order for the project's tasks.
+
+    Ids that do not belong to this project are silently ignored, so a
+    crafted payload from the client cannot reach other users' tasks.
+    """
+    own_tasks = {t.pk: t for t in project.tasks.all()}
+    updates: list[Task] = []
+    new_order = 0
+    for pk in ordered_ids:
+        task = own_tasks.get(pk)
+        if task is None:
+            continue
+        new_order += 1
+        if task.order != new_order:
+            task.order = new_order
+            updates.append(task)
+    if updates:
+        Task.objects.bulk_update(updates, ["order"])

@@ -207,3 +207,21 @@ class TaskDeleteView(OwnerScopedMixin, DeleteView):
         if self.request.htmx:
             return HttpResponse(status=200)
         return HttpResponseRedirect(reverse_lazy("tasks:project_list"))
+
+
+class TaskReorderView(LoginRequiredMixin, View):
+    """Accept a new order for a project's tasks coming from SortableJS."""
+
+    http_method_names = ["post"]
+
+    def post(self, request, project_id, *args, **kwargs):
+        project = get_object_or_404(
+            Project.objects.for_user(request.user),
+            pk=project_id,
+        )
+        try:
+            ordered_ids = [int(x) for x in request.POST.getlist("task_ids[]")]
+        except (TypeError, ValueError):
+            return HttpResponse(status=400)
+        services.reorder_tasks(project=project, ordered_ids=ordered_ids)
+        return HttpResponse(status=204)

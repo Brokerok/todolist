@@ -2,7 +2,7 @@ import pytest
 from django.urls import reverse
 
 from tasks.models import Project, Task
-from tests.factories import ProjectFactory
+from tests.factories import ProjectFactory, TaskFactory
 
 
 @pytest.mark.django_db
@@ -127,3 +127,24 @@ class TestTaskDeleteView:
         response = other_auth_client.post(reverse("tasks:task_delete", args=[task.pk]))
         assert response.status_code == 404
         assert Task.objects.filter(pk=task.pk).exists()
+
+
+@pytest.mark.django_db
+class TestTaskReorderView:
+    def test_owner_can_reorder(self, auth_client, project):
+        t1 = TaskFactory(project=project, order=1)
+        t2 = TaskFactory(project=project, order=2)
+
+        response = auth_client.post(
+            reverse("tasks:task_reorder", args=[project.pk]),
+            {"task_ids[]": [str(t2.pk), str(t1.pk)]},
+        )
+
+        assert response.status_code == 204
+        t1.refresh_from_db()
+        t2.refresh_from_db()
+        assert (t2.order, t1.order) == (1, 2)
+
+    def test_intruder_gets_404(self, other_auth_client, project):
+        response = other_auth_client.post(reverse("tasks:task_reorder", args=[project.pk]))
+        assert response.status_code == 404

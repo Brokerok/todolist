@@ -29,6 +29,11 @@ urlpatterns = [
         views.TaskCreateView.as_view(),
         name="task_create",
     ),
+    path(
+        "projects/<int:project_id>/tasks/reorder/",
+        views.TaskReorderView.as_view(),
+        name="task_reorder",
+    ),
     path("tasks/<int:pk>/edit/", views.TaskUpdateView.as_view(), name="task_update"),
     path("tasks/<int:pk>/row/", views.TaskRowView.as_view(), name="task_row"),
     path(

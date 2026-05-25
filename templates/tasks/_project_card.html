@@ -3,7 +3,8 @@
 
     <div class="project-tasks" id="project-tasks-{{ project.pk }}">
         {% include "tasks/_quick_task_form.html" with project=project %}
-        <div class="task-list">
+        <div class="task-list"
+             x-data="taskSortable('{% url 'tasks:task_reorder' project.pk %}', '{{ csrf_token }}')">
             {% for task in project.tasks.all %}
                 {% include "tasks/_task_row.html" with task=task %}
             {% endfor %}
