@@ -174,7 +174,8 @@ main.container {
 }
 
 .task-row:hover .task-actions,
-.task-row.task-editing .task-actions {
+.task-row.task-editing .task-actions,
+.task-row.task-row-open .task-actions {
     display: flex;
 }
 
@@ -258,10 +259,6 @@ main.container {
     .task-quick-add .btn {
         order: 2;
         width: 100%;
-    }
-
-    .task-actions {
-        display: flex;
     }
 
     .project-name {

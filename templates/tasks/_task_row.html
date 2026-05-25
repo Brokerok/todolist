@@ -1,6 +1,10 @@
 <div class="task-row{% if task.is_done %} task-done{% endif %}"
      id="task-row-{{ task.pk }}"
-     data-task-id="{{ task.pk }}">
+     data-task-id="{{ task.pk }}"
+     x-data="{ open: false }"
+     :class="{ 'task-row-open': open }"
+     @click="if (window.matchMedia('(hover: none)').matches && !$event.target.closest('button, input, .task-drag-handle')) open = !open"
+     @click.outside="open = false">
     <form class="task-toggle"
           hx-post="{% url 'tasks:task_toggle' task.pk %}"
           hx-target="#task-row-{{ task.pk }}"
